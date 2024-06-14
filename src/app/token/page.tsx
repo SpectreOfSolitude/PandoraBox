@@ -1,45 +1,53 @@
 'use client';
 
 import React, { ChangeEvent, useState, useContext, useEffect } from "react";
-import hmklogo from "../../public/assets/hmk.png";
+import hmklogo from "../../../public/assets/hmk.png";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 interface InputState {
-  nim: string;
+  token: string;
 }
 
 const Home = () => {
   const APIEndpoint = process.env.NEXT_PUBLIC_API_ENDPOINT
-  const [input, setInput] = useState<InputState>({ nim: "" });
+  const [input, setInput] = useState<InputState>({ token: "" });
   const router = useRouter();
-
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log("Submitted nim:", input.nim);
+    console.log("Submitted token:", input.token);
     console.log(APIEndpoint)
 
     try {
       console.log("ping")
-      console.log(`${APIEndpoint}api/getToken?nim=${input.nim}`)
-      
-      const response =await fetch(`${APIEndpoint}api/getToken?nim=${input.nim}`, {
+      console.log(`${APIEndpoint}api/getToken?token=${input.token}`)
+
+      const response = await fetch(`${APIEndpoint}api/checktoken?token=${input.token}`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
         },
         body: JSON.stringify({
-          "nim": input.nim,
+          "token": input.token,
         }),
       });
 
       console.log(response)
       if (response.ok) {
+        
         console.log("ping")
+        console.log(response)
 
-        router.push("/token");
+        const data = await response.json(); // Tarik data dari response
+        const nim = data.nim;
+        const params = new URLSearchParams({ nim });
+
+        router.push(`/calon?${params.toString()}`);
+
+        // router.push("/calon");
       } else {
+        console.error('Response indicates failure.');
         // Handle failed response condition as needed
       }
 
@@ -47,7 +55,7 @@ const Home = () => {
         console.log("ping")
         throw new Error('Failed to fetch data');
       }
-      
+
     } catch (error) {
       console.error('Fetch error:', error);
       // Handle fetch error as needed
@@ -76,24 +84,24 @@ const Home = () => {
           method="POST"
           className="content-card-container"
         >
+          <h2 className="font-bold text-xl text-center pb-4">Periksa Email Mahasiswa Anda</h2>
           <div className="flex align-center justify-center items-center text-center">
-
-          <div className="align-center justify-center items-center text-center relative w-72 min-w-[200px] h-10">
-            <input
-              onChange={handleChange}
-              value={input.nim}
-              type="text"
-              name="nim"
-              required
-              className="peer w-full h-full bg-transparent text-black font-sans font-normal outline outline-0 
+            <div className="align-center justify-center items-center text-center relative w-72 min-w-[200px] h-10">
+              <input
+                onChange={handleChange}
+                value={input.token}
+                type="text"
+                name="token"
+                required
+                className="peer w-full h-full bg-transparent text-black font-sans font-normal outline outline-0 
               focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
               placeholder-shown:border-black placeholder-shown:border-t-black border focus:border-2 border-t-transparent 
               focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-black focus:border-black"
-     
-              placeholder=" "
-            />
-            <label
-              className="flex w-full h-full select-none pointer-events-none absolute left-0 font-normal 
+
+                placeholder=" "
+              />
+              <label
+                className="flex w-full h-full select-none pointer-events-none absolute left-0 font-normal 
               !overflow-visible truncate leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
               peer-disabled:peer-placeholder-shown:text-black transition-all -top-1.5 
               peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] 
@@ -107,12 +115,12 @@ const Home = () => {
               after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] 
               text-black peer-focus:text-gray-900 peer-focus:before:!border-black
               peer-focus:after:!border-gray-900">
-                Masukkan NIM
-            </label>
+                Masukkan Token
+              </label>
 
-            <button className="bg-black mt-4 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded" type="submit">
-              SUBMIT NIM
-            </button>
+              <button className="bg-black mt-4 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded" type="submit">
+                SUBMIT TOKEN
+              </button>
             </div>
           </div>
         </form>
