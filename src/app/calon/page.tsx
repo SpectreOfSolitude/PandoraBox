@@ -16,20 +16,20 @@ const Form = () => {
   const APIEndpoint =  process.env.NEXT_PUBLIC_API_ENDPOINT
   const [input, setInput] = useState<InputState>({ nim: "" , choice_id: 0 });
   const router = useRouter();
-  const params = new URLSearchParams(window.location.search);
+  let nimParam = ""
+  
+  useEffect(() => {
 
+      let params = new URLSearchParams(window.location.search);
+      let nimParam = params.get('nim');
+  }, [])
 
-  // let { input } = state;
-  // useEffect(() => {
-  //   if (!Boolean(input.uniqueCode)) {
-  //     navigate("/");
-  //   }
-  // }, []);
 
   const handleVote1 = async (e:MouseEvent) => {
     e.preventDefault();
     try {
-      const nimParam = params.get('nim');
+      let params = new URLSearchParams(window.location.search);
+      let nimParam = params.get('nim');
       console.log(nimParam)
       console.log(`${APIEndpoint}api/vote?nim=${nimParam}&choice_id=1`)
       
@@ -68,7 +68,8 @@ const Form = () => {
   const handleVote2 = async (e: MouseEvent) => {
     e.preventDefault()
     try {
-      const nimParam = params.get('nim');
+      let params = new URLSearchParams(window.location.search);
+      let nimParam = params.get('nim');
       console.log("ping")
       console.log(`${APIEndpoint}api/vote?nim=${nimParam}&choice_id=2`)
       
