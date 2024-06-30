@@ -120,7 +120,7 @@ const Form = () => {
                     <div className="font-bold text-xl mb-2">Abudzar - Killa</div>
                     <div className="font-bold text-l mb-2">Visi</div>
                     <p className="text-black text-base">
-                      Menjadikan hmk sebagai tempat tumbuh kembang bersama yang ber-atmosfer kekeluargaan dan kuat dalam hal "ASPEK": Amanah
+                      Menjadikan hmk sebagai tempat tumbuh kembang bersama yang ber-atmosfer kekeluargaan dan kuat dalam hal &quot;ASPEKquot;: Amanah
                       Sinergis
                       Produktif
                       Efektif
