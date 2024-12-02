@@ -33,7 +33,7 @@ const Form = () => {
       console.log(nimParam)
       console.log(`${APIEndpoint}api/vote?nim=${nimParam}&choice_id=1`)
       
-      const response =await fetch(`${APIEndpoint}api/vote?nim=${nimParam}&choice_id=1`, {
+      const response =await fetch(`${APIEndpoint}api/vote`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",

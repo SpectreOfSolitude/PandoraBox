@@ -23,7 +23,7 @@ const Home = () => {
       console.log("ping")
       console.log(`${APIEndpoint}api/getToken?nim=${input.nim}`)
       
-      const response =await fetch(`${APIEndpoint}api/getToken?nim=${input.nim}`, {
+      const response =await fetch(`${APIEndpoint}api/getToken`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",

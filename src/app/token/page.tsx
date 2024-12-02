@@ -22,7 +22,7 @@ const Home = () => {
       console.log("ping")
       console.log(`${APIEndpoint}api/getToken?token=${input.token}`)
 
-      const response = await fetch(`${APIEndpoint}api/checktoken?token=${input.token}`, {
+      const response = await fetch(`${APIEndpoint}api/checktoken`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
