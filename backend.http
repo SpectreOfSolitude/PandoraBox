@@ -1,18 +1,18 @@
 
-# POST http://localhost:3001/api/vote
-# Content-Type: application/json
+POST http://localhost:3001/api/vote
+Content-Type: application/json
 
-# {
-#   "nim": "105221026",
-#   "choice_id": 1
-# }
+{
+  "nim": "105221026",
+  "choice_id": 1
+}
 
-# POST http://localhost:3001/api/getToken
-# Content-Type: application/json
+POST http://localhost:3001/api/getToken
+Content-Type: application/json
 
-# {
-#   "nim": "105221026"
-# }
+{
+  "nim": "105221026"
+}
 
 POST http://localhost:3001/api/checktoken
 Content-Type: application/json
