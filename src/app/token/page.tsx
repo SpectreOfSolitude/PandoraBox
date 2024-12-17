@@ -1,7 +1,7 @@
 'use client';
 
 import React, { ChangeEvent, useState, useContext, useEffect } from "react";
-import hmklogo from "../../../public/assets/hmk.png";
+import hmklogo from "../../../public/assets/hima.png";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -73,7 +73,17 @@ const Home = () => {
 
   return (
     <>
-      <div className="bg-gradient-to-b from-red-900 via-red-500 to-red-900 min-h-screen min-w-full">
+      <div 
+        className="min-h-screen min-w-full flex flex-col items-center justify-center"
+        style={{
+          backgroundImage: `url('/assets/bg2.jpg')`, // Path gambar
+          backgroundSize: '100% 100%',  // Lebar dan tinggi gambar disesuaikan dengan lebar dan tinggi elemen pembungkus
+          backgroundPosition: 'center', // Posisi gambar
+          backgroundRepeat: 'no-repeat', // Tidak mengulang gambar
+          width: '100%',  // Lebar elemen pembungkus
+          height: '100%', // Menetapkan tinggi sesuai dengan viewport
+        }}
+      >
 
         <div className="flex justify-center items-center p-10">
           <Image src={hmklogo} width={300} height={300} alt="Logo HMIK" />
@@ -84,7 +94,7 @@ const Home = () => {
           method="POST"
           className="content-card-container"
         >
-          <h2 className="font-bold text-xl text-center pb-4">Periksa Email Mahasiswa Anda</h2>
+          <h2 className="text-black font-sans font-bold text-xl text-center pb-4">Periksa Email Mahasiswa Anda</h2>
           <div className="flex align-center justify-center items-center text-center">
             <div className="align-center justify-center items-center text-center relative w-72 min-w-[200px] h-10">
               <input
@@ -118,7 +128,7 @@ const Home = () => {
                 Masukkan Token
               </label>
 
-              <button className="bg-black mt-4 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded" type="submit">
+              <button className="bg-black mt-5 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded" type="submit">
                 SUBMIT TOKEN
               </button>
             </div>

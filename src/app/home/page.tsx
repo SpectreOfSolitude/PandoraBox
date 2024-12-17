@@ -1,7 +1,7 @@
 'use client';
 
 import React, { ChangeEvent, useState, useContext, useEffect } from "react";
-import hmklogo from "../../../public/assets/hmk.png"
+import hima from "../../../public/assets/hima.png"
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -65,10 +65,20 @@ const Home = () => {
 
   return (
     <>
-      <div className="bg-gradient-to-b from-red-900 via-red-500 to-red-900 min-h-screen min-w-full">
-
+    
+    <div 
+        className="min-h-screen min-w-full flex flex-col items-center justify-center"
+        style={{
+          backgroundImage: `url('/assets/bg2.jpg')`, // Path gambar
+          backgroundSize: '100% 100%',  // Lebar dan tinggi gambar disesuaikan dengan lebar dan tinggi elemen pembungkus
+          backgroundPosition: 'center', // Posisi gambar
+          backgroundRepeat: 'no-repeat', // Tidak mengulang gambar
+          width: '100%',  // Lebar elemen pembungkus
+          height: '100%', // Menetapkan tinggi sesuai dengan viewport
+        }}
+      >
         <div className="flex justify-center items-center p-10">
-          <Image src={hmklogo} width={300} height={300} alt="Logo HMIK" />
+          <Image src={hima} width={300} height={300} alt="Logo HMIK" />
         </div>
 
         <form
@@ -109,8 +119,8 @@ const Home = () => {
               peer-focus:after:!border-gray-900">
                 Masukkan NIM
             </label>
-
-            <button className="bg-black mt-4 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded" type="submit">
+            
+            <button className="bg-black mt-5 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded" type="submit">
               SUBMIT NIM
             </button>
             </div>
