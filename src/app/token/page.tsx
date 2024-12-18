@@ -10,7 +10,7 @@ interface InputState {
 }
 
 const Home = () => {
-  const APIEndpoint = process.env.NEXT_PUBLIC_API_ENDPOINT
+  const APIEndpoint = "http://localhost:3000"
   const [input, setInput] = useState<InputState>({ token: "" });
   const router = useRouter();
   const handleSubmit = async (event: React.FormEvent) => {
@@ -20,16 +20,16 @@ const Home = () => {
 
     try {
       console.log("ping")
-      console.log(`${APIEndpoint}api/getToken?token=${input.token}`)
+      console.log(`$api/getToken?TOKEN=${input.token}`)
 
-      const response = await fetch(`${APIEndpoint}api/checktoken`, {
-        method: 'POST',
+      const response = await fetch(`http://localhost:3000/api/checktoken?TOKEN=${input.token}`, {
+        method: 'PUT',
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
         },
         body: JSON.stringify({
-          "token": input.token,
+          "TOKEN": input.token,
         }),
       });
 
@@ -91,7 +91,7 @@ const Home = () => {
 
         <form
           onSubmit={handleSubmit}
-          method="POST"
+          method="PUT"
           className="content-card-container"
         >
           <h2 className="text-black font-sans font-bold text-xl text-center pb-4">Periksa Email Mahasiswa Anda</h2>

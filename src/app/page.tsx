@@ -7,30 +7,33 @@ import { useRouter } from "next/navigation";
 
 interface InputState {
   nim: string;
+  email:string;
 }
 
 const Home = () => {
-  const APIEndpoint = process.env.NEXT_PUBLIC_API_ENDPOINT
-  const [input, setInput] = useState<InputState>({ nim: "" });
+  const APIEndpoint = "http://localhost:3000/"
+  const [input, setInput] = useState<InputState>({ nim: "", email:"" });
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     console.log("Submitted nim:", input.nim);
+    console.log("Submitted EMAIL:", input.email);
     console.log(APIEndpoint)
 
     try {
       console.log("ping")
-      console.log(`${APIEndpoint}api/getToken?nim=${input.nim}`)
+      console.log(`${APIEndpoint}api/getToken?nim=${input.nim}&email=${input.email}`)
       
-      const response =await fetch(`${APIEndpoint}api/getToken?nim=${input.nim}`, {
-        method: 'POST',
+      const response =await fetch(`${APIEndpoint}api/getToken?NIM=${input.nim}&EMAIL=${input.email}`, {
+        method: 'PUT',
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
         },
         body: JSON.stringify({
           "nim": input.nim,
+          "email": input.email,
         }),
       });
 
@@ -66,7 +69,7 @@ const Home = () => {
   return (
     <>
       <div 
-        className="min-h-screen min-w-full flex flex-col items-center justify-center"
+        className="min-h-screen pb-32 min-w-full flex flex-col items-center justify-center"
         style={{
           backgroundImage: `url('/assets/bg2.jpg')`, // Path gambar
           backgroundSize: '100% 100%',  // Lebar dan tinggi gambar disesuaikan dengan lebar dan tinggi elemen pembungkus
@@ -94,33 +97,27 @@ const Home = () => {
               type="text"
               name="nim"
               required
-              className="peer w-full h-full bg-transparent text-black font-sans font-normal outline outline-0 
-              focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
-              placeholder-shown:border-black placeholder-shown:border-t-black border focus:border-2 border-t-transparent 
-              focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-black focus:border-black"
+              className="peer w-full h-12 bg-transparent text-black font-sans font-normal outline outline-0 mt-4 
+              focus:outline-0 disabled:bg-black transition-all placeholder-shown:border 
+              placeholder-shown:border-black placeholder-shown:border-t-black border text-sm px-3 py-4 rounded-[7px] border-black focus:border-black"
      
-              placeholder=" "
+              placeholder="Masukkan NIM"
             />
-            <label
-              className="flex w-full h-full select-none pointer-events-none absolute left-0 font-normal 
-              !overflow-visible truncate leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
-              peer-disabled:peer-placeholder-shown:text-black transition-all -top-1.5 
-              peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] 
-              before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 
-              peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t 
-              peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none 
-              before:transition-all peer-disabled:before:border-transparent after:content[' '] 
-              after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] 
-              after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t 
-              peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none 
-              after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] 
-              text-black peer-focus:text-gray-900 peer-focus:before:!border-black
-              peer-focus:after:!border-gray-900">
-                Masukkan NIM
-            </label>
+            <input
+              onChange={handleChange}
+              value={input.email}
+              type="text"
+              name="email"
+              required
+              className="peer w-full h-12 bg-transparent text-black font-sans font-normal outline outline-0 mt-4 
+              focus:outline-0 disabled:bg-black transition-all placeholder-shown:border 
+              placeholder-shown:border-black placeholder-shown:border-t-black border text-sm px-3 py-4 rounded-[7px] border-black focus:border-black"
+     
+              placeholder=" Masukkan email"
+            />
 
             <button className="bg-black mt-5 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded" type="submit">
-              SUBMIT NIM
+              SUBMIT
             </button>
             </div>
           </div>

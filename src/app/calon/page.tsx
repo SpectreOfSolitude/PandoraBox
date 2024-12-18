@@ -11,12 +11,12 @@ import { Router } from "next/router";
 
 interface InputState {
   nim: string;
-  choice_id: number;
+  choice_id: string;
 }
 
 const Form = () => {
-  const APIEndpoint = process.env.NEXT_PUBLIC_API_ENDPOINT
-  const [input, setInput] = useState<InputState>({ nim: "", choice_id: 0 });
+  const APIEndpoint = "http://localhost:3000"
+  const [input, setInput] = useState<InputState>({ nim: "", choice_id: "" });
   const router = useRouter();
   let nimParam = ""
 
@@ -33,17 +33,16 @@ const Form = () => {
       let params = new URLSearchParams(window.location.search);
       let nimParam = params.get('nim');
       console.log(nimParam)
-      console.log(`${APIEndpoint}api/vote?nim=${nimParam}&choice_id=1`)
+      console.log(`http://localhost:3000/api/vote?nim=${nimParam}&choice_id=1`)
 
-      const response = await fetch(`${APIEndpoint}api/vote`, {
+      const response = await fetch(`api/vote?choice_id=1`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
         },
         body: JSON.stringify({
-          "nim": nimParam,
-          "choice_id": 1,
+          "choice_id": 2,
         }),
       });
 
@@ -73,17 +72,55 @@ const Form = () => {
       let params = new URLSearchParams(window.location.search);
       let nimParam = params.get('nim');
       console.log("ping")
-      console.log(`${APIEndpoint}api/vote?nim=${nimParam}&choice_id=2`)
+      console.log(`http://localhost:3000/${APIEndpoint}api/vote?nim=${nimParam}&choice_id=2`)
 
-      const response = await fetch(`${APIEndpoint}api/vote?nim=${nimParam}&choice_id=2`, {
+      const response = await fetch(`api/vote?choice_id=2`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
         },
         body: JSON.stringify({
-          "nim": nimParam,
-          "choice_id": 2,
+          "choice_id": 1,
+        }),
+      });
+
+      console.log(response)
+      if (response.ok) {
+        console.log("ping")
+
+        router.push("/");
+      } else {
+        // Handle failed response condition as needed
+      }
+
+      if (!response.ok) {
+        console.log("ping")
+        throw new Error('Failed to fetch data');
+      }
+
+    } catch (error) {
+      console.error('Fetch error:', error);
+      // Handle fetch error as needed
+    }
+  }
+
+  const handleVote3 = async (e: MouseEvent) => {
+    e.preventDefault()
+    try {
+      let params = new URLSearchParams(window.location.search);
+      let nimParam = params.get('nim');
+      console.log("ping")
+      console.log(`http://localhost:3000/${APIEndpoint}api/vote?nim=${nimParam}&choice_id=3`)
+
+      const response = await fetch(`api/vote?choice_id=3`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify({
+          "choice_id": 3,
         }),
       });
 
@@ -264,7 +301,7 @@ const Form = () => {
                     <div className="flex justify-center mt-8">
                     </div>
                     <div className="flex justify-center pt-4 pb-8 mt-4">
-                      <button onClick={handleVote1} className="justify-center inline-block rounded bg-neutral-800 px-12 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 hover:shadow-dark-2 focus:bg-neutral-700 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
+                      <button onClick={handleVote3} className="justify-center inline-block rounded bg-neutral-800 px-12 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 hover:shadow-dark-2 focus:bg-neutral-700 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
                         VOTE PASLON 3
                       </button>
                     </div>
